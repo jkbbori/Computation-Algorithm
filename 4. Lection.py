@@ -129,7 +129,7 @@ def overlap_grap(kmers):
     return asj_lst
 
 
-# print(overlap_grap(rep))
+#print(overlap_grap(rep))
 
 # de Bruijn graph what I found on the internet
 
