@@ -1,6 +1,11 @@
-def pattern_count(text: object, pattern: object) -> object:
-    count = 0
-    for elem in range(len(text) - len(pattern)):
-        if text[elem:elem + len(pattern)] == pattern:
-            count = count + 1
-    return count
+from collections import defaultdict
+
+a = []
+file = open(r"C:\Users\Bori\Desktop\test.txt")
+for elem in file:
+    line = elem.strip().split('|')
+    a.append(line)
+print(a)
+
+
+

@@ -1,3 +1,5 @@
+
+a = ['AAT', 'ATG', 'ATG', 'ATG', 'CAT', 'CCA', 'GAT', 'GCC', 'GGA', 'GGG', 'GTT', 'TAA', 'TGC', 'TGG', 'TGT']
 class Graph(dict):
     def __init__(self, dct):
         self.graph = dct
@@ -77,7 +79,6 @@ class Graph(dict):
         return cycle
 
 
-adj_list = Graph.from_file(r'C:\Users\Bori\Desktop\test1.txt')
 
 
 def to_adj_list(graph):
@@ -145,10 +146,12 @@ def Euler_Cycle(adj_list):
 
 def Euler_Path(adj_list):
     graph = adj_list.graph
+    print(graph)
     path = []
     start_pos = 0
     start_nod = list(graph.keys())[start_pos]
     path.append(start_nod)
+    print(path)
 
     for node in graph:
         if len(graph[node]) > len([elem for elem in graph if node in graph[elem]]):  # find starting node
@@ -172,6 +175,7 @@ def Euler_Path(adj_list):
                     path = path[i:] + path[1:i] + [path[i]]
                     break
 
+    print(path)
     end_of_path = path.index(end_node)
     move_on_path = end_of_path + 1
     while path[end_of_path] != end_node or path[move_on_path] != beg_node:
@@ -184,7 +188,7 @@ def Euler_Path(adj_list):
     return cycle
 
 
-#print(Euler_Path(adj_list))
+
 
 import requests
 
@@ -203,7 +207,7 @@ def overlap_grap(kmers):
     return asj_lst
 
 
-overlap = Graph.read_kmers_from_file(r'C:\Users\Bori\Desktop\assembly.txt')
+overlap = Graph.read_kmers_from_file(r"C:\Users\Bori\Desktop\test.txt")
 print(overlap.Euler_Path())
 
 

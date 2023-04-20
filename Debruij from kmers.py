@@ -17,7 +17,7 @@ def String_Composition_Problem(k: int, genome: list):
             k_mers.add(k_mer)
     return k_mers
 
-#k_mer = (String_Composition_Problem(3, genome))
+k_mer = (String_Composition_Problem(3, genome))
 
 
 
@@ -61,6 +61,5 @@ response = requests.get(
     'http://gerdos.web.elte.hu/edu/bioinformatics_algorithms/data/week4/DeBruijnFromKmers/dataset_200_8.txt')
 rep = response.text.splitlines()
 
-print(Graph(debruij_from_kmer(rep)))
 
 
