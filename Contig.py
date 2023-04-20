@@ -46,7 +46,9 @@ def Contig(k_mer):
 
     contig = []
     for _, km in enumerate(sorted(branching)):
-        print(km, end=' ')
+        contig.append(km)
+
+    return contig
 
 
 print(Contig(r"C:\Users\Bori\Desktop\test.txt"))
