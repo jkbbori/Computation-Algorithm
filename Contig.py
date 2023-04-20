@@ -12,21 +12,22 @@ def read_file(path_of_file):
 
 def Contig(k_mer):
     kmer = read_file(k_mer)
+    print(kmer)
     position = len(kmer[0]) - 1
     branching = []
     in_and_out_edge = []
     for _, km in enumerate(kmer):  # ATG
         prefix = km[0:position]  # AT
-        in_in = 0
-        out = 0
-        for _, kmr in enumerate(kmer):
+        in_in = 0  # 2
+        out = 0  # 2
+        for _, kmr in enumerate(kmer):  # ATG
             prefix_all = kmr[0:position]  # AT
             suffix_all = kmr[len(kmr) - position:len(kmr)]  # TG
             if prefix == prefix_all:
                 in_in += 1
             if prefix == suffix_all:
                 out += 1
-        if in_in == 1 and out == 1:  # if it is 1 it will have 1 branch, if it is bigger it will have more branch
+        if in_in == 1 and out == 1:
             in_and_out_edge.append(km)
         else:
             branching.append(km)
@@ -49,6 +50,5 @@ def Contig(k_mer):
         contig.append(km)
 
     return contig
-
 
 print(Contig(r"C:\Users\Bori\Desktop\test.txt"))

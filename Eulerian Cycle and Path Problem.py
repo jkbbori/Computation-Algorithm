@@ -208,6 +208,5 @@ def overlap_grap(kmers):
 
 
 overlap = Graph.read_kmers_from_file(r"C:\Users\Bori\Desktop\test.txt")
-print(overlap.Euler_Path())
 
 
