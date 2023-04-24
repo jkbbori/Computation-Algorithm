@@ -7,21 +7,20 @@ class Graph(dict):
         return '\n'.join(['{} -> {}'.format(node, ','.join(edges)) for node, edges in self.items()])
 
     @classmethod
-    def read_kmer_pairs_from_file(cls,file_location):
-        kmer_list=[]
-        with open(file_location,'r') as file_handler:
+    def read_kmer_pairs_from_file(cls, file_location):
+        kmer_list = []
+        with open(file_location, 'r') as file_handler:
             for line in file_handler:
                 kmer_list.append(tuple(line.strip().split("|")))
-        k_1mer_keys=[]
+        k_1mer_keys = []
         for kmer in kmer_list:
-            k_1mer_keys.append(kmer[0][:-1]+"|"+kmer[1][:-1])
-        adj_list={read:[] for read in k_1mer_keys}
+            k_1mer_keys.append(kmer[0][:-1] + "|" + kmer[1][:-1])
+        adj_list = {read: [] for read in k_1mer_keys}
         for read1 in set(k_1mer_keys):
             for read2 in kmer_list:
-                if read1 == (read2[0][:-1]+"|"+read2[1][:-1]):
-                    adj_list[read1].append(read2[0][1:]+"|"+read2[1][1:])
+                if read1 == (read2[0][:-1] + "|" + read2[1][:-1]):
+                    adj_list[read1].append(read2[0][1:] + "|" + read2[1][1:])
         return cls(adj_list)
-
 
     @classmethod
     def from_file(cls, file_location):
@@ -78,6 +77,7 @@ class Graph(dict):
         genome = left[0:k + d] + right
         return genome
 
+
 def overlap_grap(kmers):
     asj_lst = {kmer: [] for kmer in kmers}
     for kmer1 in kmers:
@@ -89,17 +89,3 @@ def overlap_grap(kmers):
 
 overlap = Graph.read_kmer_pairs_from_file(r'C:\Users\Bori\Desktop\test.txt')
 print(overlap.String_Reconstruction(k=50, d=200))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
