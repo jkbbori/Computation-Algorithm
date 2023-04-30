@@ -1,0 +1,105 @@
+# Global Alignment
+
+a = 'ACG'
+b = 'ACT'
+gap_penalty = -1
+match_award = 1
+mismatch_penalty = -3
+
+
+def matrix_alignment(sequence1, sequence2):
+    retval = []
+    for x in range(sequence1):
+        retval.append([])
+        for y in range(sequence2):
+            retval[-1].append(0)
+    return retval
+
+
+def match_score(seq1, seq2):
+    if seq1 == seq2:
+        return match_award
+    elif seq1 == '-' or seq2 == '-':
+        return gap_penalty
+    else:
+        return mismatch_penalty
+
+
+def filled_matrix(seq1, seq2):
+    n = len(seq1)
+    m = len(seq2)
+    score = matrix_alignment(m + 1, n + 1)
+
+    for i in range(0, m + 1):
+        score[i][0] = gap_penalty * i
+    for j in range(0, n + 1):
+        score[0][j] = gap_penalty * j
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            match = score[i - 1][j - 1] + match_score(seq1[j - 1], seq2[i - 1])
+            delete = score[i - 1][j] + gap_penalty
+            insert = score[i][j - 1] + gap_penalty
+            score[i][j] = max(match, delete, insert)
+
+    return score
+
+
+def Global_Alignment(seq1, seq2, match_award, mismatch_penalty, gap_penalty):
+    n = len(seq1)
+    m = len(seq2)
+    score = matrix_alignment(m + 1, n + 1)
+    for i in range(0, m + 1):
+        score[i][0] = gap_penalty * i
+    for j in range(0, n + 1):
+        score[0][j] = gap_penalty * j
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            match = score[i - 1][j - 1] + match_score(seq1[j - 1], seq2[i - 1])
+            delete = score[i - 1][j] + gap_penalty
+            insert = score[i][j - 1] + gap_penalty
+            score[i][j] = max(match, delete, insert)
+
+    print(score[i][j])
+
+    align1 = ""
+    align2 = ""
+    i = m
+    j = n
+    while i > 0 and j > 0:
+        score_current = score[i][j]
+        score_diagonal = score[i - 1][j - 1]
+        score_up = score[i][j - 1]
+        score_left = score[i - 1][j]
+        if score_current == score_diagonal + match_score(seq1[j - 1], seq2[i - 1]):
+            align1 += seq1[j - 1]
+            align2 += seq2[i - 1]
+            i -= 1
+            j -= 1
+        elif score_current == score_up + gap_penalty:
+            align1 += seq1[j - 1]
+            align2 += '-'
+            j -= 1
+        elif score_current == score_left + gap_penalty:
+            align1 += '-'
+            align2 += seq2[i - 1]
+            i -= 1
+
+    while j > 0:
+        align1 += seq1[j - 1]
+        align2 += '-'
+        j -= 1
+    while i > 0:
+        align1 += '-'
+        align2 += seq2[i - 1]
+        i -= 1
+
+    align1 = align1[::-1]
+    align2 = align2[::-1]
+
+    a = print(align1)
+    b = print(align2)
+
+    return (a, b)
+
+
+print(Global_Alignment(a, b, match_award, mismatch_penalty, gap_penalty))
